@@ -36,8 +36,8 @@ public class ProdutoService {
         return repository.findAll().stream().map(Produto::toDTO).collect(Collectors.toList());
     }
 
-    public Page<Produto> listarProduto(Pageable pageable) {
-       return repository.findAll(pageable);
+    public Page<ProdutoResponseDTO> listarProduto(Pageable pageable) {
+       return repository.findAll(pageable).map(Produto::toDTO);
     }
 
     public ProdutoResponseDTO atualizarProduto(ProdutoPostRequestDTO produtoPostRequestDTO, int id) {

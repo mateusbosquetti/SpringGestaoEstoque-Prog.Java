@@ -33,7 +33,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<Produto>> getProdutoPage(Pageable pageable) {
+    public ResponseEntity<Page<ProdutoResponseDTO>> getProdutoPage(Pageable pageable) {
         try {
             return new ResponseEntity<>(service.listarProduto(pageable), HttpStatus.OK);
         } catch (Exception e) {
