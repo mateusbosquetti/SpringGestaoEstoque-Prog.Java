@@ -1,5 +1,8 @@
 package net.weg.gestaoestoque2025.Controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.weg.gestaoestoque2025.DTO.Request.CategoriaPostRequestDTO;
@@ -18,6 +21,12 @@ public class CategoriaController {
 
     private CategoriaService service;
 
+    @Operation(description = "Método para postar Categoria")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro do Cliente"),
+            @ApiResponse(responseCode = "500", description = "Erro do Server")
+    })
     @PostMapping
     public ResponseEntity<CategoriaResponseDTO> postCategoria(@RequestBody @Valid CategoriaPostRequestDTO categoriaPostRequestDTO) {
         try {
