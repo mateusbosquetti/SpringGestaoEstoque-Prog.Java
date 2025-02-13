@@ -5,7 +5,11 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.weg.gestaoestoque2025.DTO.Request.ProdutoPostRequestDTO;
 import net.weg.gestaoestoque2025.DTO.Response.ProdutoResponseDTO;
+import net.weg.gestaoestoque2025.Entity.Produto;
 import net.weg.gestaoestoque2025.Service.ProdutoService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +32,19 @@ public class ProdutoController {
         }
     }
 
+    @GetMapping("/page")
+    public ResponseEntity<Page<Produto>> getProdutoPage(Pageable pageable) {
+        try {
+            return new ResponseEntity<>(service.listarProduto(pageable), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping
     public ResponseEntity<List<ProdutoResponseDTO>> getProduto() {
         try {
-            return new ResponseEntity<>(service.listarProduto(), HttpStatus.OK);
+            return new ResponseEntity<>(service.listarProdutoAntigo(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

@@ -5,6 +5,8 @@ import net.weg.gestaoestoque2025.DTO.Request.ProdutoPostRequestDTO;
 import net.weg.gestaoestoque2025.DTO.Response.ProdutoResponseDTO;
 import net.weg.gestaoestoque2025.Entity.Produto;
 import net.weg.gestaoestoque2025.Repository.ProdutoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,8 +32,12 @@ public class ProdutoService {
         return produto.toDTO();
     }
 
-    public List<ProdutoResponseDTO> listarProduto() {
+    public List<ProdutoResponseDTO> listarProdutoAntigo() {
         return repository.findAll().stream().map(Produto::toDTO).collect(Collectors.toList());
+    }
+
+    public Page<Produto> listarProduto(Pageable pageable) {
+       return repository.findAll(pageable);
     }
 
     public ProdutoResponseDTO atualizarProduto(ProdutoPostRequestDTO produtoPostRequestDTO, int id) {
