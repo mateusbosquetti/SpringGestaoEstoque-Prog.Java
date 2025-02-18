@@ -9,6 +9,7 @@ import net.weg.gestaoestoque2025.Entity.Produto;
 import net.weg.gestaoestoque2025.Service.ProdutoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,14 @@ public class ProdutoController {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<ProdutoResponseDTO>> getProdutoPage(Pageable pageable) {
+    public ResponseEntity<Page<ProdutoResponseDTO>> getProdutoPage(
+            @PageableDefault(
+                    page = 0,
+                    size = 20,
+                    sort = "nome",
+                    direction = Sort.Direction.ASC
+            )
+            Pageable pageable) {
         try {
             return new ResponseEntity<>(service.listarProduto(pageable), HttpStatus.OK);
         } catch (Exception e) {
