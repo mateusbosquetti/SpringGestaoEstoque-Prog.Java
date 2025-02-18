@@ -49,6 +49,17 @@ public class ProdutoController {
         }
     }
 
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Page<ProdutoResponseDTO>> getProdutosByCategoria(
+            @PathVariable Integer id,
+            @PageableDefault(size = 15, sort = "nome", direction = Sort.Direction.ASC) Pageable pageable) {
+        try {
+            return new ResponseEntity<>(service.listarProdutoPelaCategoria(id, pageable), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping
     public ResponseEntity<List<ProdutoResponseDTO>> getProduto() {
         try {

@@ -40,6 +40,13 @@ public class ProdutoService {
        return repository.findAll(pageable).map(Produto::toDTO);
     }
 
+    public Page<ProdutoResponseDTO> listarProdutoPelaCategoria(Integer id, Pageable pageable) {
+        return repository.findByCategoriaId(id, pageable).map(Produto::toDTO);
+    }
+
+
+
+
     public ProdutoResponseDTO atualizarProduto(ProdutoPostRequestDTO produtoPostRequestDTO, int id) {
         buscarProduto(id);
 
