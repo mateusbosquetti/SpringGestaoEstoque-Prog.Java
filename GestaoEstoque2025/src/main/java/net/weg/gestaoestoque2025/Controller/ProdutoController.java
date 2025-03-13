@@ -60,6 +60,28 @@ public class ProdutoController {
         }
     }
 
+    @GetMapping("/filtro/{nome}")
+    public ResponseEntity<List<ProdutoResponseDTO>> getProdutosFiltro(
+            @PathVariable String nome) {
+        try {
+            return new ResponseEntity<>(service.buscarPorFiltro(nome), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/filtro/{preco1}/{preco2}")
+    public ResponseEntity<List<ProdutoResponseDTO>> getProdutosFiltro(
+            @PathVariable String preco1,@PathVariable String preco2) {
+        try {
+            return new ResponseEntity<>(service.buscarPorFiltro(preco1, preco2), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
+            System.out.printf(String.valueOf(e.getClass()));
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        }
+    }
+
     @GetMapping
     public ResponseEntity<List<ProdutoResponseDTO>> getProduto() {
         try {
